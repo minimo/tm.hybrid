@@ -30,6 +30,12 @@
                         for (var i = 1; i < asset.model.meshes.length; i++) {
                             tm.hybrid.Mesh(asset.model.meshes[i]).addChildTo(this);
                         }
+                    } else if (asset instanceof tm.asset.MMD) {
+                        this.superInit(asset.mesh);
+                        var that = this;
+                        this.on('enterframe', function(e) {
+                            that.threeObject.ikSolver.update();
+                        });
                     }
                 } else {
                     console.error("アセット'{0}'がないよ".format(mesh));
