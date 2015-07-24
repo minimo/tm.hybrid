@@ -58,13 +58,9 @@ tm.define("mainScene", {
             mesh.addChildTo(this)
                 .setPosition(i-30, 0, i-30) 
                 .on("enterframe", function(e) {
-                    if (this.threeObject.vy) {
-                        this.vy += this.threeObject.vy;
-                        this.threeObject.vy = 0;
-                        this.rotation.y += this.vy;
-                        this.vy *= 0.999;
-                        if (this.vy < 0.001) this.vy = 0;
-                    }
+                    this.rotation.y += this.vy;
+                    this.vy *= 0.98;
+                    if (this.vy < 0.01) this.vy = 0;
                 }.bind(mesh));
         }
     },
@@ -89,7 +85,7 @@ tm.define("mainScene", {
             var obj = ray.intersectObjects(scene.children);
 
             if (obj.length > 0) {
-                obj[0].object.vy = 1;
+                obj[0].object.hybridObject.vy = 1;
             }
         }
     },
