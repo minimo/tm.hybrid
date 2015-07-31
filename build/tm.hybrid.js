@@ -460,9 +460,9 @@ THE SOFTWARE.
                     } else if (asset instanceof tm.asset.Vox) {
                         this.superInit(asset.mesh.clone());
                     } else if (asset instanceof tm.asset.MQO) {
-                        this.superInit(asset.model.meshes[0]);
+                        this.superInit(asset.model.meshes[0].clone());
                         for (var i = 1; i < asset.model.meshes.length; i++) {
-                            tm.hybrid.Mesh(asset.model.meshes[i]).addChildTo(this);
+                            tm.hybrid.Mesh(asset.model.meshes[i].clone()).addChildTo(this);
                         }
                     }
                 } else {
@@ -1679,6 +1679,9 @@ tm.asset = tm.asset || {};
                 if (mat.specular) mat.specular.setRGB(r*mqoMat.spc, g*mqoMat.spc, b*mqoMat.spc);
                 if (mqoMat.tex) {
                     mat.map = THREE.ImageUtils.loadTexture(_modelPath+"/"+mqoMat.tex);
+                }
+                if (mqoMat.aplane) {
+                    mat.alphaMap = THREE.ImageUtils.loadTexture(_modelPath+"/"+mqoMat.aplane);
                 }
                 mat.transparent = true;
                 mat.shiness = mqoMat.power;
